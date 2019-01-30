@@ -21,13 +21,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         resultsLabel.text = ""
-        
     }
 
     @IBAction func numberPressed(_ sender: Any) {
         // Write number string to screen
         
         let tag = (sender as! UIButton).tag
+        
+        // Update numbe on screen
         
         if isPerformingOperation == true {
             isPerformingOperation = false
@@ -37,8 +38,6 @@ class ViewController: UIViewController {
             resultsLabel.text = resultsLabel.text! + String(tag - 1)
             numberOnScreen = Double(resultsLabel.text!)!
         }
-
-        
     }
     
     @IBAction func operatorPressed(_ sender: Any) {
@@ -46,7 +45,7 @@ class ViewController: UIViewController {
         // Implement operators
         let tag = (sender as! UIButton).tag
         
-        // Clear button
+        // Clear button (16)
         if tag == 16 {
             resultsLabel.text = ""
             previousNumber = 0
@@ -54,29 +53,17 @@ class ViewController: UIViewController {
             operation = 0
         }
         
-        // Addition operator
-        if tag == 11 {
+        // Perform math operations
+        // Assign operators to tag +(14) -(13) x(12) /(11)
+        if (tag == 11 || tag == 12 || tag == 13 || tag == 14) {
+            operation = tag
             isPerformingOperation = true
             previousNumber = Double(resultsLabel.text!)!
-            resultsLabel.text = "÷"
-            operation = tag
-        } else if tag == 12 {
-            isPerformingOperation = true
-            previousNumber = Double(resultsLabel.text!)!
-            resultsLabel.text = "X"
-            operation = tag
-        } else if tag == 13 {
-            isPerformingOperation = true
-            previousNumber = Double(resultsLabel.text!)!
-            resultsLabel.text = "-"
-            operation = tag
-        } else if tag == 14 {
-            isPerformingOperation = true
-            previousNumber = Double(resultsLabel.text!)!
-            resultsLabel.text = "+"
-            operation = tag
-        } else if tag == 15 {
-           
+        }
+        
+       // Operator =(15)
+        else if tag == 15 {
+    
             if operation == 11 {
                 resultsLabel.text = String(previousNumber / numberOnScreen)
                 
